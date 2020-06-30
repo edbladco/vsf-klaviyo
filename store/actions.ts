@@ -166,7 +166,7 @@ export const actions: ActionTree<KlaviyoState, any> = {
           mode: 'cors',
           body: JSON.stringify({
             email: email,
-            storeCode: config.defaultStoreCode
+            storeCode: rootStore.getters.getCurrentStoreView.storeCode
           })
         }).then(res => {
           commit(types.NEWSLETTER_SUBSCRIBE)
