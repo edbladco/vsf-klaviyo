@@ -1,5 +1,5 @@
 import rootStore from '@vue-storefront/core/store'
-import { formatProductLink } from '@vue-storefront/core/modules/url/helpers'
+import { formatProductLink, parametrizeRouteData } from '@vue-storefront/core/modules/url/helpers'
 import { router } from '@vue-storefront/core/app'
 
 export const mapPersonalDetails = (details) => {
@@ -80,7 +80,8 @@ export const mapLineItem = (product) => {
 export const mapCart = (cart) => {
   let userToken = rootStore.getters['user/getUserToken']
   let cartId = cart.cartServerToken
-  let link = router.resolve({ name: 'checkout', query: { userToken, cartId } })
+  let route = parametrizeRouteData({ name: 'checkout', query: { userToken, cartId } }, {}, rootStore.state.storeView.storeCode)
+  let link = router.resolve(route)
   let products = []
 
   for (let i = 0; i < cart.cartItems.length; i++) {
